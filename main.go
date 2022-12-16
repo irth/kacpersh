@@ -7,9 +7,14 @@ import (
 )
 
 func main() {
+	shell := os.Getenv("SHELL")
+	if len(shell) == 0 {
+		log.Fatalf("Please set the SHELL variable to a supported shell.")
+	}
+
 	os.Setenv("IN_KACPERSH", "1")
 	term := Term{
-		Command: exec.Command("zsh", "-l"),
+		Command: exec.Command(shell, "-l"),
 		BufSize: 16,
 	}
 
