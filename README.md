@@ -17,7 +17,7 @@ https://gist.github.com/irth/ffba9da0a9a4f6df54f02fe06605f19c
 ## v1
 
 - [x] launch users shell (according to SHELL/profile by default) instead of a hardcoded one
-- [ ] communicate over a unix socket, path to which is passed through an env variable (so that u can have more than one shell)
+- [x] communicate over a unix socket, path to which is passed through an env variable (so that u can have more than one shell)
 - [ ] generate config for zsh, so that it can be eval'ed in .zshrc easily
 
 ## v2
