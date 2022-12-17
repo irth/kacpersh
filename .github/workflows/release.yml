@@ -11,7 +11,6 @@ jobs:
         GOOS:
           - linux
           - darwin
-          - plan9
           - openbsd
           - freebsd
         GOARCH:
@@ -24,8 +23,6 @@ jobs:
             GOARCH: '386'
           - GOOS: darwin
             GOARCH: arm
-          - GOOS: plan9
-            GOARCH: arm64
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
