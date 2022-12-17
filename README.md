@@ -62,7 +62,7 @@ https://gist.github.com/irth/ffba9da0a9a4f6df54f02fe06605f19c
 - [x] communicate over a unix socket, path to which is passed through an env variable (so that u can have more than one shell)
 - [x] generate config for zsh, so that it can be eval'ed in .zshrc easily
 - [x] limit the saved buffer size so that it doesn't fill up your ram (for now I hardcoded it to 32MiB)
-- [ ] allow auto-activation through zshrc
+- [x] allow auto-activation through zshrc
 
 ### v2
 
