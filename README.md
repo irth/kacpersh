@@ -8,9 +8,11 @@ Also, Kacper sounds a bit like "capture". So, it fits.
 
 ## Usage
 
-### Build `kacpersh` and put it in your `$PATH`
+### Download or build `kacpersh` and put it in your `$PATH`
 
-For example:
+You can download precompiled `kacpersh` from the [releases page](https://github.com/irth/kacpersh/releases).
+
+Alternatively, install go and compile it yourself:
 
 ```sh
 go build
