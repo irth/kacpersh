@@ -6,6 +6,10 @@ The idea is to make the shell/terminal/whatever capture all commands, and make t
 
 Also, Kacper sounds a bit like "capture". So, it fits.
 
+## Screencast
+
+[![screencast.mp4](screencast.png)](screencast.mp4?raw=1)
+
 ## Usage
 
 ### Download or build `kacpersh` and put it in your `$PATH`
