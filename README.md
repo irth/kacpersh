@@ -61,7 +61,7 @@ https://gist.github.com/irth/ffba9da0a9a4f6df54f02fe06605f19c
 - [x] launch users shell (according to SHELL/profile by default) instead of a hardcoded one
 - [x] communicate over a unix socket, path to which is passed through an env variable (so that u can have more than one shell)
 - [x] generate config for zsh, so that it can be eval'ed in .zshrc easily
-- [ ] limit the saved buffer size so that it doesn't fill up your ram
+- [x] limit the saved buffer size so that it doesn't fill up your ram (for now I hardcoded it to 32MiB)
 
 ### v2
 
@@ -71,6 +71,10 @@ https://gist.github.com/irth/ffba9da0a9a4f6df54f02fe06605f19c
 ### v3
 
 - [ ] a version of `_` command that doesn't replace the stored output with its own so that you can do something like this:
+
+### sometime along the line...
+
+- [ ] configuration? (e.g. setting last command buffer limit)
 
 ```console
 $ curl example.com/a/slow/api

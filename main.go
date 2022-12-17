@@ -62,7 +62,7 @@ func main() {
 		}
 	}()
 
-	recorder := NewRecorder(outByteCh)
+	recorder := NewRecorder(outByteCh, 32*1024*1024)
 	go recorder.Run()
 
 	tempDir, err := createTempDir()

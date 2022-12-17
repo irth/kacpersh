@@ -18,9 +18,11 @@ type Recorder struct {
 
 	recording bool
 	current   []byte
+
+	sizeLimit int
 }
 
-func NewRecorder(stdout <-chan byte) *Recorder {
+func NewRecorder(stdout <-chan byte, sizeLimit int) *Recorder {
 	return &Recorder{
 		control: make(chan ControlMessage),
 		sync:    make(chan []byte),
@@ -29,6 +31,7 @@ func NewRecorder(stdout <-chan byte) *Recorder {
 
 		recording: false,
 		current:   make([]byte, 0),
+		sizeLimit: sizeLimit,
 	}
 }
 
@@ -47,7 +50,9 @@ func (r *Recorder) Run() {
 		select {
 		case ch := <-r.stdout:
 			if r.recording {
-				r.current = append(r.current, ch)
+				if len(r.current) < r.sizeLimit {
+					r.current = append(r.current, ch)
+				}
 			}
 		case cmd := <-r.control:
 			switch cmd {
