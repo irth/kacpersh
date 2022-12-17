@@ -1,9 +1,9 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -11,7 +11,34 @@ import (
 	"path"
 )
 
+//go:embed init.zsh
+var initZSH []byte
+
+func usage() {
+	fmt.Printf("usage %s: kacpersh [init zsh]", os.Args[0])
+	os.Exit(1)
+}
+
 func main() {
+	// TODO: replace with actual argument parsing
+	if len(os.Args) > 1 {
+		if os.Args[1] == "init" {
+			if len(os.Args) != 3 {
+				usage()
+			}
+			switch os.Args[2] {
+			case "zsh":
+				os.Stdout.Write(initZSH)
+			default:
+				fmt.Printf("shell \"%s\" is not supported\n", os.Args[2])
+				usage()
+			}
+		} else {
+			usage()
+		}
+		os.Exit(0)
+	}
+
 	if path, ok := os.LookupEnv("KACPERSH_DEBUG"); ok {
 		f, err := os.Create(path)
 		if err != nil {
@@ -77,7 +104,7 @@ func createTempDir() (string, error) {
 	}
 
 	tempDirPattern := fmt.Sprintf("kacpersh-%s-*", username)
-	tempDir, err := ioutil.TempDir("", tempDirPattern)
+	tempDir, err := os.MkdirTemp("", tempDirPattern)
 	if err != nil {
 		return "", err
 	}
