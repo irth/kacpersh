@@ -46,7 +46,10 @@ func (c *ControlServer) ListenAndServe() error {
 	mux.HandleFunc("/last", func(w http.ResponseWriter, r *http.Request) {
 		lock.Lock()
 		defer lock.Unlock()
-		w.Write(last)
+		_, err := w.Write(last)
+		if err != nil {
+			log.Printf("http write error: %s", err)
+		}
 	})
 
 	return http.Serve(listener, logRequest(mux))

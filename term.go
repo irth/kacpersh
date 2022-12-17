@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -35,20 +36,35 @@ func (t *Term) Spawn(output chan<- []byte) error {
 	if err != nil {
 		return fmt.Errorf("making the terminal raw: %w", err)
 	}
-	defer term.Restore(int(os.Stdin.Fd()), oldState)
+	defer func() {
+		if err := term.Restore(int(os.Stdin.Fd()), oldState); err != nil {
+			log.Printf("restoring term state: %s", err)
+		}
+	}()
 
 	// we don't need stdin where we're going, so we just copy it straight to the pty
-	go io.Copy(ptmx, os.Stdin)
+	stdinPumpErrors := make(chan error)
+	go func() {
+		_, err := io.Copy(ptmx, os.Stdin)
+		if err != nil {
+			stdinPumpErrors <- err
+		}
+	}()
 
-	pumpErrors := pump(output, ptmx, t.BufSize)
+	stdoutPumpErrors := pump(output, ptmx, t.BufSize)
 
 	for {
 		select {
-		case err := <-pumpErrors:
+		case err := <-stdoutPumpErrors:
 			if errors.Is(err, io.EOF) {
 				return nil
 			}
 			return fmt.Errorf("stdout pump error: %w", err)
+		case err := <-stdinPumpErrors:
+			if errors.Is(err, io.EOF) {
+				return nil
+			}
+			return fmt.Errorf("stdin pump error: %w", err)
 		case <-winch:
 			if err := pty.InheritSize(os.Stdin, ptmx); err != nil {
 				return fmt.Errorf("error resizing pty: %w", err)
