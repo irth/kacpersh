@@ -25,7 +25,7 @@ Currently only ZSH is supported.
 echo 'eval "$(kacpersh init zsh)"' >> ~/.zshrc
 ```
 
-### Run kacpersh
+### Run kacpersh and use the `_` alias to retrieve the stdout of the last command.
 
 ```console
 $ kacpersh
@@ -62,7 +62,7 @@ https://gist.github.com/irth/ffba9da0a9a4f6df54f02fe06605f19c
 - [ ] in-band signalling - this will allow as to implement buffering for performance, as we don't have to keep perfect synchronisation anymore
 - [ ] see if we can support bash and fish
 
-### v4
+### v3
 
 - [ ] a version of `_` command that doesn't replace the stored output with its own so that you can do something like this:
 
@@ -80,6 +80,6 @@ first line of output
 some more output
 ```
 
-### v5
+### v4
 
 - [ ] capture multiple commands instead of just the last one, decreasing the odds of losing data
