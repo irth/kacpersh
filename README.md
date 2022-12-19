@@ -14,6 +14,13 @@ Also, Kacper sounds a bit like "capture". So, it fits.
 
 ### Download or build `kacpersh` and put it in your `$PATH`
 
+**Homebrew:**
+
+```sh
+brew tap irth/irth
+brew install irth/irth/kacpersh
+```
+
 You can download precompiled `kacpersh` from the [releases page](https://github.com/irth/kacpersh/releases).
 
 Alternatively, install go and compile it yourself:
